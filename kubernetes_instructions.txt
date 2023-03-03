@@ -1,0 +1,62 @@
+# KUBERNETES ALL THINGS
+POD - IS A group of one ore more containers ,they share storage and network as well
+# Generally one pod has one docker container 
+
+ kubectl get all —>get everything in Kubernetes
+kubectl get pods
+kubectl get pods —show-labels #show label of pods
+
+
+kubectl apply -f first-pod.yaml. —>creates pod
+
+minikube ip —>gets ip of Minikube 
+
+#pods command
+kubectl describe pod pod name
+Kubectl describe service service name
+
+
+kubectl exec nameofpod  ls. —>ls  is the command
+
+Example - kubectl exec webapp ls
+
+Kubectl -it exec webapp sh. — creates interactive shell with Kubernetes pod
+
+https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#-strong-write-operations-pod-v1-core-strong-
+
+Pods are not long running so that’s why they are not exposed on system
+#services 
+We provide selector while creating service which looks for it on the pod and selects it
+Type:ClusterIp — >not exposed to external traffic in service only inside the clusterIP ,service will have an Ip and it would be long-lived
+
+Type :NodePort —>exposing the port to the outside world
+kubectl apply -f webapp-service.yaml 
+
+—need to use minikube ip —> command to get the ip and on that ip the service would be running
+
+#for minikube - minikube service service name will open it on browser automatically
+
+ kubectl apply -f .  # apply all the files in the folder
+
+
+ #Replica sets kubernetes --->
+
+ deleting a pod --> kubectl delete pod podname # all pods -- kubectl delete pod --all
+ deleting a service ---> kubectl delete service(svc) servicename
+ #how many instances of a pod is running at a particular time ,if there is 
+ less than that replica set ,kubernetes will spring up that for us 
+ #describing replicaset
+ kubectl describe replicaset webapp
+  kubectl describe rs webapp
+  kubectl delete replicaset replicasetname
+
+
+  #deployments in kubernetes
+  almost same as replicaSet but has rolling deployments
+-----------------
+  #rollouts
+  kubectl rollout status deploy webapp
+
+  kubectl rollout history deploy webapp
+
+  kubectl rollout undo deploy webapp --to-revision=2  # will go back to version 2
