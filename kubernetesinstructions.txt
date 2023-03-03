@@ -1,0 +1,33 @@
+POD
+A group of one or more containers that share storage and network
+Generally, one pod has one Docker container
+kubectl get all - gets everything in Kubernetes
+kubectl get pods - gets pods
+kubectl get pods --show-labels - shows labels of pods
+kubectl apply -f first-pod.yaml - creates a pod
+kubectl describe pod <pod-name> - describes a pod
+kubectl describe service <service-name> - describes a service
+kubectl exec <pod-name> ls - executes the ls command
+kubectl -it exec <pod-name> sh - creates an interactive shell with the Kubernetes pod
+Pods are not long-running, so they are not exposed on the system
+SERVICES
+We provide a selector while creating a service that looks for it on the pod and selects it
+Type: ClusterIP - not exposed to external traffic in service only inside the clusterIP; service will have an IP and it would be long-lived
+Type: NodePort - exposing the port to the outside world
+kubectl apply -f webapp-service.yaml - applies the service YAML file
+Use minikube ip command to get the IP; the service will be running on that IP
+For Minikube, minikube service <service-name> will open it on the browser automatically
+kubectl apply -f . - applies all the files in the folder
+REPLICA SETS
+Deleting a pod: kubectl delete pod <pod-name>; all pods: kubectl delete pod --all
+Deleting a service: kubectl delete service(svc) <service-name>
+How many instances of a pod are running at a particular time, if there are less than that replica set, Kubernetes will spin up that for us
+Describing replica set: kubectl describe replicaset <replica-set-name>
+kubectl describe rs <replica-set-name>
+kubectl delete replicaset <replica-set-name>
+DEPLOYMENTS
+Almost the same as replica set but has rolling deployments
+ROLLOUTS
+kubectl rollout status deploy <deployment-name>
+kubectl rollout history deploy <deployment-name>
+kubectl rollout undo deploy <deployment-name> --to-revision=2 - will go back to version 2.
